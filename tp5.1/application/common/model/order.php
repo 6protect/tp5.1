@@ -3,13 +3,14 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2020/1/3
- * Time: 15:34
+ * Time: 11:53
  */
 
-namespace app\home\controller;
+namespace app\common\model;
 
+use think\Model;
 
-class Index
+class order extends Model
 {
 
 }
