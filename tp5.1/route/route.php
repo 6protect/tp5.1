@@ -26,3 +26,16 @@ Route::get('index/Score', 'index/Score/index')->middleware('checkToken');
 return [
 
 ];
+
+Route::get('getMyEvents','api/MyEvents/getMyEvents'); //我的活动列表
+Route::get('myEventsDetails','api/MyEvents/myEventsDetails');  //个人活动详情
+Route::get('change','api/ChangeNumber/index'); //更换手机号
+Route::get('byUserPhoneSendCode','api/ChangeNumber/byUserPhoneSendCode');  //通过用户手机号发送验证码
+Route::get('verifyUserPhoneSendCode','api/ChangeNumber/verifyUserPhoneSendCode');  //验证用户手机号发送过来的验证码
+Route::get('byUserInputPhoneSendCode','api/ChangeNumber/byUserInputPhoneSendCode');  //通过用户输入的手机号发送验证码
+Route::get('verifyUserInputPhoneSendCode','api/ChangeNumber/verifyUserInputPhoneSendCode');    //验证用户输入的手机号发送过来的验证码
+Route::get('getAllOrder','api/Orders/getAllOrder');    //获取全部订单
+Route::get('getObligationOrder','api/Orders/getObligationOrder');    //获取待付款的订单
+Route::get('getStudyingOrder','api/Orders/getStudyingOrder');    //获取学习中的订单
+Route::get('getEndOrder','api/Orders/getEndOrder');   //获取学习结束的订单
+
