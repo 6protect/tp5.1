@@ -11,6 +11,9 @@ class favorite extends Model
     public static function getFavorite($userINfo){
         return self::where('mid',$userINfo['id'])->select();
     }
+    public static function getFavoriteCount($userId){
+        return self::where('mid',$userId)->count();
+    }
     public static function delFavorite($mid,$aid){
         return self::where('mid',$mid)->where('article_id',$aid)->delete();
     }

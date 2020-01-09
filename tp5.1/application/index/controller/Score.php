@@ -4,19 +4,25 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\Request;
+use \app\index\model\score as ScoreModel;
 
 class Score extends Controller
 {
     /**
-     * 显示资源列表
+     * 显示积分
      *
      * @return \think\Response
      */
     public function index()
     {
         //
+
         $userInfo=cache($this->request->param('token'));
-        return json(['error_code'=>0,'data'=>$userInfo],200);
+
+        $scoreList=ScoreModel::getScoreList($userInfo['id']);
+        $data['userInfo']=$userInfo;
+        $data['scoreList']=$scoreList;
+        return json(['error_code'=>0,'data'=>$data],200);
     }
 
     /**

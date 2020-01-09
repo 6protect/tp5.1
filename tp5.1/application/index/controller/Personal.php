@@ -5,6 +5,7 @@ namespace app\index\controller;
 use think\Controller;
 use think\Request;
 use \app\index\model\ticket as TicketModel;
+use app\index\model\member as MemberModel;
 class Personal extends Controller
 {
     /**
@@ -16,6 +17,7 @@ class Personal extends Controller
     {
         //
         $userInfo=cache($this->request->param('token'));
+        $userInfo=MemberModel::getUserINfo(1);
         $ticketCount=TicketModel::getTicketCount($userInfo);
     }
 

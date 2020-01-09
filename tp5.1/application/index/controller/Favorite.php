@@ -21,7 +21,7 @@ class Favorite extends Controller
         //
         $userInfo=cache($this->request->param('token'));
         $userInfo['id']=1;
-        $favoriteList=FavoriteModel::getFavorite($userInfo);
+        $favoriteList=FavoriteModel::getFavorite($userInfo['id']);
         $courseList=array();
         $headLineList=array();
         foreach ($favoriteList as $key=>$value){
@@ -41,7 +41,8 @@ class Favorite extends Controller
             }
 
         }
-        $data=array($courseList,$headLineList);
+        $data['courseList']=$courseList;
+        $data['headLineList']=$headLineList;
         return json(['error_code'=>0,'data'=>$data],200);
     }
 

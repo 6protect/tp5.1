@@ -8,6 +8,7 @@ use \app\index\model\headline as HeadLineModel;
 use \app\index\model\haderline_image as HeadLineImageModel;
 use think\Validate;
 use \app\index\model\favorite as FavoriteModel;
+use \app\index\model\member as MemberModel;
 class HeadLine extends Controller
 {
     /**
@@ -29,7 +30,7 @@ class HeadLine extends Controller
     {
         //
         $userInfo=cache($this->request->param('token'));
-        $userInfo['id']=1;
+        $userInfo=MemberModel::getUserINfo(1);
         $request_data = request()->param('');
         $validater = new Validate();
         $validater->rule([
@@ -45,12 +46,13 @@ class HeadLine extends Controller
         if (count($headLine)==0){
             return json(['error_code'=>10002,'msg'=>'头条id不正确!请重新获取!'],403);
         }
-        $favoriteInfo=FavoriteModel::getFavoriteInfo($userInfo['id'],$articleId);
+        $favoriteInfo=FavoriteModel::getFavoriteInfo($userInfo[0]['id'],$articleId);
 
         $headLine[0]['img_dir']=$headLineImage[0]['img_dir'];
         $headLine[0]['image']=$headLineImage[0]['image'];
         $headLine[0]['islike']=$favoriteInfo[0]['like'];
-        $data=array($userInfo,$headLine);
+        $data['userInfo']=$userInfo;
+        $data['headLine']=$headLine;
         return json(['error_code'=>0,'data'=>$data],200);
     }
 
@@ -106,11 +108,11 @@ class HeadLine extends Controller
         $userId=(int)$userInfo['id'];
         $type=$request_data['type'];
         if ($type!='like'&&$type!='collect'){
-            return json(['error_code'=>10002,'msg'=>'type的值不正确!请重新获取!'],403);
+            return json(['error_code'=>10002,'msg'=>'type的值不正确!请传\'like\'或者\'collect\'!'],403);
         }
-        $status=$request_data['status'];
+        $status=(int)$request_data['status'];
         if ($status!=0&&$status!=1){
-            return json(['error_code'=>10002,'msg'=>'status的值不正确!请重新获取!'],403);
+            return json(['error_code'=>10002,'msg'=>'status的值不正确!请传\'0\'或者\'1\'!'],403);
         }
         if ($type=='like'){
             if ($status==0){

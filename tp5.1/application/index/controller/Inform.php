@@ -4,11 +4,12 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\Request;
-use app\index\model\award as AwardModel;
-class Invite extends Controller
+use app\index\model\inform as InformModel;
+
+class Inform extends Controller
 {
     /**
-     * 显示邀请码
+     * 显示资源列表
      *
      * @return \think\Response
      */
@@ -16,12 +17,9 @@ class Invite extends Controller
     {
         //
         $userInfo=cache($this->request->param('token'));
-        $awardList=AwardModel::getAward($userInfo['id']);
-        $awardListCount['count']=AwardModel::getAwardCount($userInfo['id']);
-        $data['userInfo']=$userInfo;
-        $data['awardListCount']=$awardListCount;
-        $data['awardList']=$awardList;
-        return json(['error_code'=>0,'data'=>$data],200);
+
+        $informList=InformModel::getInformList($userInfo[0]['id']);
+        return json(['error_code'=>0,'data'=>$informList],200);
     }
 
     /**
