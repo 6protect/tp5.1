@@ -5,7 +5,7 @@ namespace app\index\controller;
 use think\Controller;
 use think\Request;
 use \app\index\model\score as ScoreModel;
-
+//use app\index\model\member as MemberModel;
 class Score extends Controller
 {
     /**
@@ -16,10 +16,15 @@ class Score extends Controller
     public function index()
     {
         //
-
+//        $userInfo=MemberModel::getUserINfo(1);
+//        dump($userInfo);
+//        $token = md5(uniqid(time()));
+//        dump($token);
+//        // 保存token
+//        cache($token, $userInfo, 7200);
         $userInfo=cache($this->request->param('token'));
 
-        $scoreList=ScoreModel::getScoreList($userInfo['id']);
+        $scoreList=ScoreModel::getScoreList($userInfo[0]['id']);
         $data['userInfo']=$userInfo;
         $data['scoreList']=$scoreList;
         return json(['error_code'=>0,'data'=>$data],200);

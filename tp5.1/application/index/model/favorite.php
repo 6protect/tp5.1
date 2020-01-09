@@ -8,8 +8,8 @@ class favorite extends Model
 {
     //
     public $pk='id';
-    public static function getFavorite($userINfo){
-        return self::where('mid',$userINfo['id'])->select();
+    public static function getFavorite($userId){
+        return self::where('mid',$userId)->select();
     }
     public static function getFavoriteCount($userId){
         return self::where('mid',$userId)->count();

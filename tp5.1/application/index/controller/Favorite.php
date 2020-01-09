@@ -20,12 +20,12 @@ class Favorite extends Controller
     {
         //
         $userInfo=cache($this->request->param('token'));
-        $userInfo['id']=1;
-        $favoriteList=FavoriteModel::getFavorite($userInfo['id']);
+
+        $favoriteList=FavoriteModel::getFavorite($userInfo[0]['id']);
+
         $courseList=array();
         $headLineList=array();
         foreach ($favoriteList as $key=>$value){
-
             if ($value['cid']!=''){
                 $course=CourseModel::getCourse($value['cid']);
                 $course[0]['count']=OrdersModel::getCourseCount($value['cid']);
@@ -41,6 +41,8 @@ class Favorite extends Controller
             }
 
         }
+
+
         $data['courseList']=$courseList;
         $data['headLineList']=$headLineList;
         return json(['error_code'=>0,'data'=>$data],200);

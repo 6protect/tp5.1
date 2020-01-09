@@ -4,24 +4,23 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\Request;
-use \app\index\model\myTicket as TicketModel;
 use app\index\model\member as MemberModel;
-use app\index\model\favorite as FavoriteModel;
-use app\index\model\orders as OrdersModel;
-class Personal extends Controller
+class Token extends Controller
 {
     /**
-     * 显示用户信息
+     * 显示资源列表
      *
      * @return \think\Response
      */
     public function index()
     {
         //
-        $userInfo=cache($this->request->param('token'));
-        $ticketCount=TicketModel::getTicketCount($userInfo[0]['id']);
-        $favoriteCount=FavoriteModel::getFavoriteCount($userInfo[0]['id']);
-        return json(['error_code'=>0,'data'=>$ticketCount],200);
+        //
+        $userInfo=MemberModel::getUserINfo(1);
+        $token = md5(uniqid(time()));
+        // 保存token
+        cache($token, $userInfo, 7200);
+        return json(['error_code'=>0,'data'=>$token],200);
     }
 
     /**

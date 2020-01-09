@@ -16,8 +16,8 @@ class Invite extends Controller
     {
         //
         $userInfo=cache($this->request->param('token'));
-        $awardList=AwardModel::getAward($userInfo['id']);
-        $awardListCount['count']=AwardModel::getAwardCount($userInfo['id']);
+        $awardList=AwardModel::getAward($userInfo[0]['id']);
+        $awardListCount['count']=AwardModel::getAwardCount($userInfo[0]['id']);
         $data['userInfo']=$userInfo;
         $data['awardListCount']=$awardListCount;
         $data['awardList']=$awardList;

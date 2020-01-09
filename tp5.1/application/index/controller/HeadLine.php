@@ -30,7 +30,6 @@ class HeadLine extends Controller
     {
         //
         $userInfo=cache($this->request->param('token'));
-        $userInfo=MemberModel::getUserINfo(1);
         $request_data = request()->param('');
         $validater = new Validate();
         $validater->rule([
