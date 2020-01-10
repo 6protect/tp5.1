@@ -54,3 +54,7 @@ return [
 
 
 
+Route::get('demo','api/Test/demo');
+Route::get('getActiveDetail','api/Test/getActiveDetail');
+Route::get('select','api/Test/select');
+Route::get('entry','api/Test/entry');
