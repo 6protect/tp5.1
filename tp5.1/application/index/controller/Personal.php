@@ -8,6 +8,7 @@ use \app\index\model\myTicket as TicketModel;
 use app\index\model\member as MemberModel;
 use app\index\model\favorite as FavoriteModel;
 use app\index\model\orders as OrdersModel;
+use app\index\model\inform as InformModel;
 class Personal extends Controller
 {
     /**
@@ -21,7 +22,14 @@ class Personal extends Controller
         $userInfo=cache($this->request->param('token'));
         $ticketCount=TicketModel::getTicketCount($userInfo[0]['id']);
         $favoriteCount=FavoriteModel::getFavoriteCount($userInfo[0]['id']);
-        return json(['error_code'=>0,'data'=>$ticketCount],200);
+        $courseCount=OrdersModel::getCourseCount($userInfo[0]['id']);
+        $informCount=InformModel::getInformcount($userInfo[0]['id']);
+        $data['userInfo']=$userInfo;
+        $data['ticketCount']=$ticketCount;
+        $data['favoriteCount']=$favoriteCount;
+        $data['courseCount']=$courseCount;
+        $data['informCount']=$informCount;
+        return json(['error_code'=>0,'data'=>$data],200);
     }
 
     /**

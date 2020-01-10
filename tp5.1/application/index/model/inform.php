@@ -11,4 +11,7 @@ class inform extends Model
     public static function getInformList($userId){
         return self::where('mid',$userId)->select();
     }
+    public static function getInformcount($userId){
+        return self::where('mid',$userId)->count();
+    }
 }

@@ -16,7 +16,7 @@ Route::get('think', function () {
 Route::get('hello/:name', 'index/hello');
 Route::get('hello/:name', 'index/hello');
 Route::get('index/Ticket', 'index/Ticket/getTicket')->middleware('checkToken');
-Route::get('index/Personal', 'index/Personal/getUserInfo')->middleware('checkToken');
+Route::get('index/Personal', 'index/Personal/index')->middleware('checkToken');
 Route::get('index/Consult', 'index/Consult/index')->middleware('checkToken');
 Route::get('index/Favorite', 'index/Favorite/index')->middleware('checkToken');
 Route::get('index/HeadLine', 'index/HeadLine/create')->middleware('checkToken');
@@ -37,17 +37,17 @@ Route::get('index/Token', 'index/Token/index');
 
 
 
-Route::get('api/getMyEvents','api/MyEvents/getMyEvents'); //我的活动列表
-Route::get('api/myEventsDetails','api/MyEvents/myEventsDetails');  //个人活动详情
-Route::get('api/change','api/ChangeNumber/index'); //更换手机号
-Route::get('api/byUserPhoneSendCode','api/ChangeNumber/byUserPhoneSendCode');  //通过用户手机号发送验证码
-Route::get('api/verifyUserPhoneSendCode','api/ChangeNumber/verifyUserPhoneSendCode');  //验证用户手机号发送过来的验证码
-Route::get('api/byUserInputPhoneSendCode','api/ChangeNumber/byUserInputPhoneSendCode');  //通过用户输入的手机号发送验证码
-Route::get('api/verifyUserInputPhoneSendCode','api/ChangeNumber/verifyUserInputPhoneSendCode');    //验证用户输入的手机号发送过来的验证码
-Route::get('api/getAllOrder','api/Orders/getAllOrder');    //获取全部订单
-Route::get('api/getObligationOrder','api/Orders/getObligationOrder');    //获取待付款的订单
-Route::get('api/getStudyingOrder','api/Orders/getStudyingOrder');    //获取学习中的订单
-Route::get('api/getEndOrder','api/Orders/getEndOrder');   //获取学习结束的订单
+Route::get('api/getMyEvents','api/MyEvents/getMyEvents'); //??????
+Route::get('api/myEventsDetails','api/MyEvents/myEventsDetails');  //??????
+Route::get('api/change','api/ChangeNumber/index'); //?????
+Route::get('api/byUserPhoneSendCode','api/ChangeNumber/byUserPhoneSendCode');  //????????????
+Route::get('api/verifyUserPhoneSendCode','api/ChangeNumber/verifyUserPhoneSendCode');  //???????????????
+Route::get('api/byUserInputPhoneSendCode','api/ChangeNumber/byUserInputPhoneSendCode');  //???????????????
+Route::get('api/verifyUserInputPhoneSendCode','api/ChangeNumber/verifyUserInputPhoneSendCode');    //??????????????????
+Route::get('api/getAllOrder','api/Orders/getAllOrder');    //??????
+Route::get('api/getObligationOrder','api/Orders/getObligationOrder');    //????????
+Route::get('api/getStudyingOrder','api/Orders/getStudyingOrder');    //????????
+Route::get('api/getEndOrder','api/Orders/getEndOrder');   //?????????
 return [
 
 ];
