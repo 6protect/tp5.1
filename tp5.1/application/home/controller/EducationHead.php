@@ -70,67 +70,24 @@ class EducationHead
     }
 
     /*
-     * 收藏功能
-     */
-    public function collect(Request $request)
-    {
-        // 文章id
-        $id = $request->param('id');
-        $token = $request->param('token');
-        if ($id) {
-            // 用户id
-            $user_info = cache($token);
-            $mid = $user_info['id'];
-            $where['article_id'] = $id;
-            $where['mid'] = $mid;
-            $row = Db::name('collect')->where($where)->find();
-            if ($row) {
-                if ($row['collect'] == 1) {
-                    // 改为收藏
-                    $res = Db::name('collect')->where($where)->update(['collect' => '0']);
-                    $msg = "已收藏";
-                    $sta = 1;
-                } else {
-                    // 改为为收藏
-                    $res = Db::name('collect')->where($where)->update(['collect' => '1']);
-                    $msg = "已取消收藏";
-                    $sta = 0;
-                }
-            } else {
-                // 插入数据
-                $data = ['collect' => '0', 'mid' => $mid, 'article_id' => $id, 'add_time' => time()];
-                $res = Db::name('collect')->insert($data);
-                $msg = "已收藏";
-                $sta = 1;
-            }
-            $collect_num = Db::name('headline')->where(['id'=>$id])->value('collect_num');
-            if ($sta == 1){
-                $collect_num = $collect_num+1;
-            }else{
-                $collect_num = $collect_num-1;
-            }
-            Db::name('headline')->where(['id'=>$id])->update(['collect_num'=>$collect_num]);
-            if ($res){
-                $da = jsonData(0,$msg);
-            }else{
-                $da = jsonData(10003,'系统繁忙,请稍后');
-            }
-        } else {
-            // 文章id未传值
-            $da = jsonData(10005,'未传值');
-        }
-        return json($da,201);
-    }
-
-    /*
-     * 点赞功能
+     * 点赞与点赞功能
      */
     public function like(Request $request)
     {
         // 文章id
         $id = $request->param('id');
+        $flag = $request->param('flag');
         $token = $request->param('token');
-        if ($id) {
+        if ($id && $flag) {
+            if($flag == 1){
+                // 收藏
+                $name = 'collect';
+                $str = '收藏';
+            }else{
+                //点赞
+                $name = 'like';
+                $str = '点赞';
+            }
             // 用户id
             $user_info = cache($token);
             $mid = $user_info['id'];
@@ -138,31 +95,32 @@ class EducationHead
             $where['mid'] = $mid;
             $row = Db::name('favorite')->where($where)->find();
             if ($row) {
-                if ($row['like'] == 1) {
+                if ($row[$name] == 1) {
                     // 改为收藏
-                    $res = Db::name('favorite')->where($where)->update(['like' => '0']);
-                    $msg = "已点赞";
+                    $res = Db::name('favorite')->where($where)->update([$name => '0']);
+                    $msg = "已".$str;
                     $sta = 1;
                 } else {
                     // 改为为收藏
-                    $res = Db::name('favorite')->where($where)->update(['like' => '1']);
-                    $msg = "已取消点赞";
+                    $res = Db::name('favorite')->where($where)->update([$name => '1']);
+                    $msg = "已取消".$str;
                     $sta = 0;
                 }
             } else {
                 // 插入数据
-                $data = ['like' => '0', 'mid' => $mid, 'article_id' => $id, 'add_time' => time()];
+                $data = [$name => '0', 'mid' => $mid, 'article_id' => $id, 'add_time' => time()];
                 $res = Db::name('favorite')->insert($data);
-                $msg = "已点赞";
+                $msg = "已".$str;
                 $sta = 1;
             }
-            $like_num = Db::name('headline')->where(['id'=>$id])->value('like_num');
+            $val = $name.'_num';
+            $num = Db::name('headline')->where(['id'=>$id])->value($val);
             if ($sta == 1){
-                $like_num = $like_num+1;
+                $num = $num+1;
             }else{
-                $like_num = $like_num-1;
+                $num = $num-1;
             }
-            Db::name('headline')->where(['id'=>$id])->update(['like_num'=>$like_num]);
+            Db::name('headline')->where(['id'=>$id])->update([$val=>$num]);
             if ($res){
                 $da = jsonData(0,$msg);
             }else{
