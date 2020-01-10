@@ -10,6 +10,5 @@ Route::group('headline/',function (){
     Route::post('headSeach','home/EducationHead/headSeach');
     Route::post('headDateils','home/EducationHead/headDateils');
     Route::post('like','home/EducationHead/like');
-    Route::post('collect','home/EducationHead/collect');
 })->middleware('CheckPengGe');
 
