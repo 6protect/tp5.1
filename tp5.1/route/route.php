@@ -73,29 +73,29 @@ Route::group('home/',function (){
 })->middleware('CheckPengGe');
 
 
+//注册
+Route::post('user/register','api/User/register');
 
+//获得注册验证码
+Route::post('user/verifyCode','api/User/verifyCode');
 
+//登录
+Route::get('user/login','api/User/login');
 
+//获得token
+Route::get('token','api/Token/getToken');
 
+//首页轮播图
+Route::get('index/carousel','api/Index/carousel');
 
+//首页明星教师
+Route::get('index/teachersList','api/Index/teachersList');
 
+//首页热门课程
+Route::get('index/courseList','api/Index/courseList');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//首页热门活动
+Route::get('index/activityList','api/Index/activityList');
 
 
 
