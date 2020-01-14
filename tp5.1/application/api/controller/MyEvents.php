@@ -41,16 +41,16 @@ class MyEvents extends Controller
     {
 
         $user_info = cache($this->request->param('token'));
-        $user_info['id'] = 1;
+        
         //请求数据库查数据
-        $data = MyEventsModel::getMyEvents($user_info);
+        $data = MyEventsModel::getMyEvents($user_info[0]['id']);
         //返回json
         return json(['error_code'=>0,'data'=>$data],200);
     }
     //个人活动详情
     public function myEventsDetails(){
         $user_info = cache($this->request->param('token'));
-        $user_info['eid'] = $this->request->param('id');
+        $user_info[0]['eid'] = $this->request->param('id');
         //请求数据库查数据
         $data = MyEventsModel::getMyEventsDetails($user_info);
         //返回json

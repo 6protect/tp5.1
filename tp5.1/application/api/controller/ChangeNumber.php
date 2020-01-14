@@ -48,7 +48,7 @@ class ChangeNumber extends Controller
         //
         $user_info = cache($this->request->param('token'));
 
-        $info_data = MemberModel::get($user_info['id']);
+        $info_data = MemberModel::get($user_info[0]['id']);
 
        $data = $info_data['mobile'];
         return json(['error_code'=>0,'data'=>$data],200);
@@ -90,7 +90,7 @@ class ChangeNumber extends Controller
     //通过用户手机号发送验证码
     public function byUserPhoneSendCode(){
         $user_info = cache($this->request->param('token'));
-        $phone = $user_info['mobile'];
+        $phone = $user_info[0]['mobile'];
         $data = $this->sendCode($phone);
         return json(['error_code'=>0,'data'=>$data],200);
     }
@@ -141,7 +141,7 @@ class ChangeNumber extends Controller
     //验证用户输入的手机号发送过来的验证码
     public function verifyUserInputPhoneSendCode(){
         $user_info = cache($this->request->param('token'));
-        $id = $user_info['id'];
+        $id = $user_info[0]['id'];
         $phone = Session::get('inputPhone');
         $data = $this->verifyCode();
         if ($data['status'] == 1){
